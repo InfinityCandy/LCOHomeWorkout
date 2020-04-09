@@ -18,9 +18,10 @@ class DaywiseModeButton extends StatelessWidget {
         child: RaisedButton(
           elevation: 4,
           color: Color(0xFFE74292),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          onPressed: () {},
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          onPressed: () {
+            Navigator.pushNamed(context, "/dayWiseMode");
+          },
           child: Text(
             "Daywise",
             style:

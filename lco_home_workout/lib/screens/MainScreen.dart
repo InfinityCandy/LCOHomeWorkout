@@ -6,6 +6,7 @@ import '../widgets/mainScreenWidgets/DaywiseModeButton.dart';
 import '../widgets/mainScreenWidgets/Aboutwidget.dart';
 
 class MainScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

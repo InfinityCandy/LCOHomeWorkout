@@ -44,8 +44,15 @@ flutter:
   assets:
     - assets/images/LCO_workout_logo.png
     - assets/images/LCO_LOGO.png
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+    - assets/images/AssistedPress.png
+    - assets/images/BallPushups.png
+    - assets/images/BenchPress.png
+    - assets/images/BicepsCurls.png
+    - assets/images/Crunches.png
+    - assets/images/DumbellPushups.png
+    - assets/images/InclineBenchPress.png
+    - assets/images/OneLegBalance.png
+    - assets/images/SittedRows.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

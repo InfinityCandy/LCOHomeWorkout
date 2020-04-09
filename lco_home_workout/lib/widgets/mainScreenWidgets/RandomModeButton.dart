@@ -19,7 +19,9 @@ class RandomModeButton extends StatelessWidget {
           color: Color(0xFFE74292),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/randomMode");
+          },
           child: Text(
             "Random",
             style:

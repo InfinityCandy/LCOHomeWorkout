@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './screens/MainScreen.dart';
+import './screens/randomModeScreen.dart';
+import './screens/DaywiseModeScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +14,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder> {
         "/": (BuildContext context) => MainScreen(),
+        "/randomMode": (BuildContext context) => RandomModeScreen(),
+        "/dayWiseMode": (BuildContext context) => DaywiseModeScreen()
       },
     );
   }
