@@ -9,6 +9,7 @@ class RandomModeScreen extends StatefulWidget {
 }
 
 class _RandomModeScreenState extends State<RandomModeScreen> {
+  FocusNode myFocusNode = new FocusNode();
   var selectedExercisesList = <Widget>[];
   final exercisesList = const [
     {
@@ -145,68 +146,117 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
             Container(
               decoration: BoxDecoration(color: Color(0x22d1d8e0)),
             ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: screenHeight * 0.015,
-                  right: screenWidth * 0.02,
-                  left: screenWidth * 0.02),
-              height: screenHeight * 0.83,
-              width: screenWidth,
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(15))),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 10),
-                          child: Text(
-                            "Exercises List",
-                            style: TextStyle(
-                                color: Color(0xFF2d2d2d),
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700),
-                          )),
-                      ...selectedExercisesList,
-                      Container(
+            SingleChildScrollView(
+                child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                      top: screenHeight * 0.015,
+                      right: screenWidth * 0.02,
+                      left: screenWidth * 0.02),
+                  height: screenHeight * 0.83,
+                  width: screenWidth,
+                  child: Card(
+                    elevation: 4,
+                    margin: EdgeInsets.only(right: 2, left: 2, bottom: 20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            margin: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Text(
+                              "Exercises List",
+                              style: TextStyle(
+                                  color: Color(0xFF2d2d2d),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700),
+                            )),
+                        ...selectedExercisesList,
+                        Container(
+                            height: 50,
+                            width: 300,
+                            margin: EdgeInsets.only(top: 20),
+                            child: RaisedButton(
+                              elevation: 4,
+                              color: Colors.pinkAccent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              onPressed: () {},
+                              child: Text("Reselect Exercises",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 25)),
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      right: screenWidth * 0.02,
+                      left: screenWidth * 0.02,
+                      bottom: 10),
+                  height: screenHeight * 0.22,
+                  width: screenWidth,
+                  child: Card(
+                    elevation: 4,
+                    margin: EdgeInsets.only(right: 2, left: 2, bottom: 20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20))),
+                    child: Center(
+                        child: Form(
+                            child: Column(
+                      children: <Widget>[
+                        Container(
+                            margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+                            child: TextFormField(
+                              focusNode: myFocusNode,
+                              decoration: InputDecoration(
+                                labelText: "Number of set",
+                                labelStyle: TextStyle(color: Color(0xFF01CBC6)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(
+                                          color: Color(0xFF01CBC6),
+                                          width: 2
+                                        )),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(
+                                          color: Color(0xFF01CBC6),
+                                          width: 2
+                                        )),
+                              ),
+                            )),
+                        Container(
                           height: 50,
                           width: 300,
                           margin: EdgeInsets.only(top: 20),
                           child: RaisedButton(
                             elevation: 4,
-                            color: Color(0xFFBB2CD9),
+                            color: Color(0xFF01CBC6),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: () {},
-                            child: Text("Reselect Exercises",
+                            child: Text("Start Exercise!!!!",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 25)),
-                          )),
-                      Container(
-                        height: 50,
-                        width: 300,
-                        margin: EdgeInsets.only(top: 20, bottom: 15),
-                        child: RaisedButton(
-                          elevation: 4,
-                          color: Color(0xFFBB2CD9),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          onPressed: () {},
-                          child: Text("Start Exercise!!!!",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25)),
+                          ),
                         ),
-                      )
-                    ],
+                      ],
+                    ))),
                   ),
                 ),
-              ),
-            )
+              ],
+            ))
           ],
         ));
   }
