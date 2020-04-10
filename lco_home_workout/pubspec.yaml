@@ -53,6 +53,7 @@ flutter:
     - assets/images/InclineBenchPress.png
     - assets/images/OneLegBalance.png
     - assets/images/SittedRows.png
+    - assets/images/Home_Icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

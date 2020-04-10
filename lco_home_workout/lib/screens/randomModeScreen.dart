@@ -9,7 +9,7 @@ class RandomModeScreen extends StatefulWidget {
 }
 
 class _RandomModeScreenState extends State<RandomModeScreen> {
-  FocusNode myFocusNode = new FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var selectedExercisesList = <Widget>[];
   final exercisesList = const [
     {
@@ -127,6 +127,15 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     super.initState();
   }
 
+  void _validateSetsNumber() {
+    if (_formKey.currentState.validate()) {
+      print("Hola");
+    }
+    else {
+      print("No hola");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -136,6 +145,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(screenHeight * 0.080),
           child: AppBar(
+            automaticallyImplyLeading: false,
             title: Image.asset("assets/images/LCO_workout_logo.png",
                 fit: BoxFit.contain),
             backgroundColor: Color(0xFFae37d2),
@@ -154,11 +164,14 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                       top: screenHeight * 0.015,
                       right: screenWidth * 0.02,
                       left: screenWidth * 0.02),
-                  height: screenHeight * 0.83,
+                  height: screenHeight * 0.82,
                   width: screenWidth,
                   child: Card(
                     elevation: 4,
-                    margin: EdgeInsets.only(right: 2, left: 2, bottom: 20),
+                    margin: EdgeInsets.only(
+                      right: screenWidth * 0.005, 
+                      left: screenWidth * 0.005, 
+                      bottom: screenHeight * 0.025),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(50),
@@ -168,19 +181,23 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                            margin: EdgeInsets.only(top: 20, bottom: 10),
+                            margin: EdgeInsets.only(
+                              top: screenHeight * 0.02, 
+                              bottom: screenHeight * 0.010),
                             child: Text(
                               "Exercises List",
                               style: TextStyle(
                                   color: Color(0xFF2d2d2d),
-                                  fontSize: 30,
+                                  fontSize: screenHeight * 0.034,
                                   fontWeight: FontWeight.w700),
                             )),
                         ...selectedExercisesList,
                         Container(
-                            height: 50,
-                            width: 300,
-                            margin: EdgeInsets.only(top: 20),
+                            height: screenHeight * 0.055,
+                            width: screenWidth * 0.73,
+                            margin: EdgeInsets.only(
+                              top: screenHeight * 0.02
+                            ),
                             child: RaisedButton(
                               elevation: 4,
                               color: Colors.pinkAccent,
@@ -189,7 +206,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                               onPressed: () {},
                               child: Text("Reselect Exercises",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 25)),
+                                      color: Colors.white, fontSize: screenHeight * 0.026)),
                             )),
                       ],
                     ),
@@ -199,12 +216,15 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                   margin: EdgeInsets.only(
                       right: screenWidth * 0.02,
                       left: screenWidth * 0.02,
-                      bottom: 10),
-                  height: screenHeight * 0.22,
+                      bottom: screenHeight * 0.01),
+                  height: screenHeight * 0.23,
                   width: screenWidth,
                   child: Card(
                     elevation: 4,
-                    margin: EdgeInsets.only(right: 2, left: 2, bottom: 20),
+                    margin: EdgeInsets.only(
+                      right: screenWidth * 0.005, 
+                      left: screenWidth * 0.005, 
+                      bottom: screenHeight * 0.020),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
@@ -213,51 +233,76 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                             bottomLeft: Radius.circular(20))),
                     child: Center(
                         child: Form(
-                            child: Column(
+                          key: _formKey,
+                          child: Column(
                       children: <Widget>[
                         Container(
-                            margin: EdgeInsets.only(top: 20, right: 20, left: 20),
+                            margin:
+                                EdgeInsets.only(
+                                  top: screenHeight * 0.02, 
+                                  right: screenWidth * 0.06, 
+                                  left: screenWidth * 0.06),
                             child: TextFormField(
-                              focusNode: myFocusNode,
+                              keyboardType: TextInputType.number,
+                              validator: (String setsNumeber) {
+                                if(setsNumeber == "") {
+                                  return "Enter the number of sets you wish to do";
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
                               decoration: InputDecoration(
                                 labelText: "Number of set",
-                                labelStyle: TextStyle(color: Color(0xFF01CBC6)),
+                                labelStyle: TextStyle(color: Color(0xFF01CBC6), fontSize: screenHeight * 0.018),
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(
-                                          color: Color(0xFF01CBC6),
-                                          width: 2
-                                        )),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFF01CBC6), width: 2)),
                                 enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(
-                                          color: Color(0xFF01CBC6),
-                                          width: 2
-                                        )),
+                                    borderSide: BorderSide(
+                                        color: Color(0xFF01CBC6), width: 2)),
+                                errorBorder: UnderlineInputBorder (
+                                  borderSide: BorderSide(color: Colors.red, width: 2)
+                                )
                               ),
                             )),
                         Container(
-                          height: 50,
-                          width: 300,
-                          margin: EdgeInsets.only(top: 20),
+                          height: screenHeight * 0.055,
+                          width: screenWidth * 0.73,
+                          margin: EdgeInsets.only(
+                            top: screenHeight * 0.022
+                          ),
                           child: RaisedButton(
                             elevation: 4,
                             color: Color(0xFF01CBC6),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            onPressed: () {},
-                            child: Text("Start Exercise!!!!",
+                            onPressed: _validateSetsNumber,
+                            child: Text("Start Exercise",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 25)),
+                                    color: Colors.white, fontSize: screenHeight * 0.027)),
                           ),
                         ),
                       ],
                     ))),
                   ),
-                ),
+                )
               ],
             ))
           ],
-        ));
+        ),
+        floatingActionButton: Container(
+          height: screenHeight * 0.08, 
+          width: screenHeight * 0.08, 
+          child: FloatingActionButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          elevation: 4,
+          child: Icon(Icons.home, size: screenHeight * 0.047,),
+          backgroundColor: Color(0xFFae37d2),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,);
   }
 }
