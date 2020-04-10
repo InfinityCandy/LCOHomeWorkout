@@ -61,7 +61,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     }
   ];
 
-  List<Widget> getSelectedExercises() {
+  List<Widget> getSelectedExercises(double screenHeight, double screenWidth) {
     Random random = new Random();
     List<Widget> exercises = <Widget>[];
 
@@ -69,16 +69,22 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
       int randomNumber = 0 + random.nextInt(8 - 0);
 
       exercises.add(Container(
-        height: 110,
-        width: 400,
+        height: screenHeight * 0.123,
+        width: screenWidth * 0.95,
         child: Card(
-          margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 10),
+          margin: EdgeInsets.only(
+            top: screenHeight * 0.01, 
+            right: screenWidth * 0.02, 
+            bottom: screenHeight * 0.01, 
+            left: screenWidth * 0.02),
           elevation: 5,
           child: Row(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(left: 10),
-                width: 85,
+                margin: EdgeInsets.only(
+                  left: screenWidth * 0.025
+                ),
+                width: screenWidth * 0.20,
                 decoration: BoxDecoration(
                     color: Color(0xFFE74292),
                     shape: BoxShape.circle,
@@ -92,22 +98,26 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 20),
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.045
+                    ),
                     child: Text(
                       "Exercise: " +
                           exercisesList[0][randomNumber.toString()]
                               ["ExerciseName"],
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 20),
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.045
+                    ),
                     child: Text(
                       "Duration: " +
                           exercisesList[0][randomNumber.toString()]["Duration"],
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w500),
                     ),
                   )
                 ],
@@ -123,7 +133,6 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
 
   @override
   void initState() {
-    selectedExercisesList = getSelectedExercises();
     super.initState();
   }
 
@@ -191,7 +200,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                                   fontSize: screenHeight * 0.034,
                                   fontWeight: FontWeight.w700),
                             )),
-                        ...selectedExercisesList,
+                        ...getSelectedExercises(screenHeight, screenWidth),
                         Container(
                             height: screenHeight * 0.055,
                             width: screenWidth * 0.73,
