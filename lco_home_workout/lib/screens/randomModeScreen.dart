@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../widgets/randomModeScreenWidgets/ExerciseCard.dart';
+import '../widgets/randomModeScreenWidgets/ExercisesListTitle.dart';
+import '../widgets/randomModeScreenWidgets/ReselectExercisesButton.dart';
 import 'dart:math';
 
 class RandomModeScreen extends StatefulWidget {
@@ -11,121 +14,15 @@ class RandomModeScreen extends StatefulWidget {
 class _RandomModeScreenState extends State<RandomModeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var selectedExercisesList = <Widget>[];
-  final exercisesList = const [
-    {
-      "0": {
-        "ExerciseName": "Assisted Press",
-        "Duration": "1 Minutes",
-        "Asset": "assets/images/AssistedPress.png"
-      },
-      "1": {
-        "ExerciseName": "Ball Pushup",
-        "Duration": "2 Minutes",
-        "Asset": "assets/images/BallPushups.png"
-      },
-      "2": {
-        "ExerciseName": "Bench Press",
-        "Duration": "1 Minute",
-        "Asset": "assets/images/BenchPress.png"
-      },
-      "3": {
-        "ExerciseName": "Bicep Curls",
-        "Duration": "5 Minutes",
-        "Asset": "assets/images/BicepsCurls.png"
-      },
-      "4": {
-        "ExerciseName": "Crunches",
-        "Duration": "1 Minute",
-        "Asset": "assets/images/Crunches.png"
-      },
-      "5": {
-        "ExerciseName": "Dumbell Pushup",
-        "Duration": "2 Minutes",
-        "Asset": "assets/images/DumbellPushups.png"
-      },
-      "6": {
-        "ExerciseName": "Incline Bench P.",
-        "Duration": "2 Minutes",
-        "Asset": "assets/images/InclineBenchPress.png"
-      },
-      "7": {
-        "ExerciseName": "One Leg Balance",
-        "Duration": "8 Minutes",
-        "Asset": "assets/images/OneLegBalance.png"
-      },
-      "8": {
-        "ExerciseName": "Sitted Row",
-        "Duration": "45 Seconds",
-        "Asset": "assets/images/SittedRows.png"
-      }
-    }
-  ];
 
-  List<Widget> getSelectedExercises(double screenHeight, double screenWidth) {
+
+  List<Widget> _getSelectedExercises(double screenHeight, double screenWidth) {
     Random random = new Random();
     List<Widget> exercises = <Widget>[];
 
     for (var i = 0; i < 5; i++) {
       int randomNumber = 0 + random.nextInt(8 - 0);
-
-      exercises.add(Container(
-        height: screenHeight * 0.123,
-        width: screenWidth * 0.95,
-        child: Card(
-          margin: EdgeInsets.only(
-            top: screenHeight * 0.01, 
-            right: screenWidth * 0.02, 
-            bottom: screenHeight * 0.01, 
-            left: screenWidth * 0.02),
-          elevation: 5,
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(
-                  left: screenWidth * 0.025
-                ),
-                width: screenWidth * 0.20,
-                decoration: BoxDecoration(
-                    color: Color(0xFFE74292),
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(exercisesList[0]
-                            [randomNumber.toString()]["Asset"]))),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.045
-                    ),
-                    child: Text(
-                      "Exercise: " +
-                          exercisesList[0][randomNumber.toString()]
-                              ["ExerciseName"],
-                      style:
-                          TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.045
-                    ),
-                    child: Text(
-                      "Duration: " +
-                          exercisesList[0][randomNumber.toString()]["Duration"],
-                      style:
-                          TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ));
+      exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: randomNumber));
     }
 
     return exercises;
@@ -134,7 +31,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
   @override
   void initState() {
     super.initState();
-  }
+  }//initState()
 
   void _validateSetsNumber() {
     if (_formKey.currentState.validate()) {
@@ -143,12 +40,17 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     else {
       print("No hola");
     }
-  }
+  }//_validateSetsNumber()
+
+  void _reselectExercises() {
+    setState(() {});
+  }//_reselectExercises()
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    List<Widget> exercisesListWidgets = _getSelectedExercises(screenHeight, screenWidth);
 
     return Scaffold(
         appBar: PreferredSize(
@@ -189,34 +91,9 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                             bottomLeft: Radius.circular(20))),
                     child: Column(
                       children: <Widget>[
-                        Container(
-                            margin: EdgeInsets.only(
-                              top: screenHeight * 0.02, 
-                              bottom: screenHeight * 0.010),
-                            child: Text(
-                              "Exercises List",
-                              style: TextStyle(
-                                  color: Color(0xFF2d2d2d),
-                                  fontSize: screenHeight * 0.034,
-                                  fontWeight: FontWeight.w700),
-                            )),
-                        ...getSelectedExercises(screenHeight, screenWidth),
-                        Container(
-                            height: screenHeight * 0.055,
-                            width: screenWidth * 0.73,
-                            margin: EdgeInsets.only(
-                              top: screenHeight * 0.02
-                            ),
-                            child: RaisedButton(
-                              elevation: 4,
-                              color: Colors.pinkAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              onPressed: () {},
-                              child: Text("Reselect Exercises",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: screenHeight * 0.026)),
-                            )),
+                        ExecisesListTitle(screenHeight: screenHeight, screenWidth: screenWidth),
+                        ...exercisesListWidgets,
+                        ReselectExercisesButton(screenHeight: screenHeight, screenWidth: screenWidth, reselectExercisesHandler: _reselectExercises),
                       ],
                     ),
                   ),
