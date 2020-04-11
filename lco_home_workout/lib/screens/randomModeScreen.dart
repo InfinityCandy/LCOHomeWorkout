@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/randomModeScreenWidgets/ExerciseCard.dart';
 import '../widgets/randomModeScreenWidgets/ExercisesListTitle.dart';
 import '../widgets/randomModeScreenWidgets/ReselectExercisesButton.dart';
+import '../widgets/randomModeScreenWidgets/ExercisesListContainer.dart';
 import 'dart:math';
 
 class RandomModeScreen extends StatefulWidget {
@@ -13,25 +14,42 @@ class RandomModeScreen extends StatefulWidget {
 
 class _RandomModeScreenState extends State<RandomModeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  var selectedExercisesList = <Widget>[];
 
-
+  /*
+  * Selects randomly the list of exercises for today's training.
+  * @param screenHeight: The height of the device's screen given by a mediaQuery.
+  * @param screenWidth: The width of the device's screen given by a mediaQuery.
+  * return a list of widgets containing cards widgets with the selected exercises.
+  */
   List<Widget> _getSelectedExercises(double screenHeight, double screenWidth) {
     Random random = new Random();
     List<Widget> exercises = <Widget>[];
+    Set<int> selectedExercisesSet = Set();
 
-    for (var i = 0; i < 5; i++) {
+    //Iterates until get 5 exercises inside de "exercises" array.
+    while(true) {
+      //Generates a random number between 0 and 8.
       int randomNumber = 0 + random.nextInt(8 - 0);
-      exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: randomNumber));
+
+      //If we have no exercises inside selectedExercisesSet, then we add a new exercise to our list, and we add the exercise's index to the set.
+      //If we don't have the exercise's index inside our set, then we add a new exercise to our list and we add the exercise's index to the set.
+      if(selectedExercisesSet.isEmpty || !selectedExercisesSet.contains(randomNumber)) {
+        exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: randomNumber));
+        selectedExercisesSet.add(randomNumber);
+
+        //If we have five index in our set that means that we have five exercises in our Array, so we break out of the loop.
+        if(selectedExercisesSet.length == 5) {
+          break;
+        }
+      }
     }
 
     return exercises;
   } //getSelectedExercises()
 
-  @override
-  void initState() {
-    super.initState();
-  }//initState()
+  void _reselectExercises() {
+    setState(() {});
+  }//_reselectExercises()
 
   void _validateSetsNumber() {
     if (_formKey.currentState.validate()) {
@@ -42,9 +60,10 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     }
   }//_validateSetsNumber()
 
-  void _reselectExercises() {
-    setState(() {});
-  }//_reselectExercises()
+  @override
+  void initState() {
+    super.initState();
+  }//initState()
 
   @override
   Widget build(BuildContext context) {
@@ -70,33 +89,12 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
             SingleChildScrollView(
                 child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                      top: screenHeight * 0.015,
-                      right: screenWidth * 0.02,
-                      left: screenWidth * 0.02),
-                  height: screenHeight * 0.82,
-                  width: screenWidth,
-                  child: Card(
-                    elevation: 4,
-                    margin: EdgeInsets.only(
-                      right: screenWidth * 0.005, 
-                      left: screenWidth * 0.005, 
-                      bottom: screenHeight * 0.025),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20))),
-                    child: Column(
-                      children: <Widget>[
-                        ExecisesListTitle(screenHeight: screenHeight, screenWidth: screenWidth),
-                        ...exercisesListWidgets,
-                        ReselectExercisesButton(screenHeight: screenHeight, screenWidth: screenWidth, reselectExercisesHandler: _reselectExercises),
-                      ],
-                    ),
-                  ),
+                ExercisesListContainer(
+                  screenHeight: screenHeight, 
+                  screenWidth: screenWidth, 
+                  exercisesTitle: ExecisesListTitle(screenHeight: screenHeight, screenWidth: screenWidth), 
+                  exercisesList: exercisesListWidgets, 
+                  reselectExercisesButton: ReselectExercisesButton(screenHeight: screenHeight, screenWidth: screenWidth, reselectExercisesHandler: _reselectExercises)
                 ),
                 Container(
                   margin: EdgeInsets.only(
