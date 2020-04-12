@@ -3,7 +3,9 @@ import '../widgets/randomModeScreenWidgets/ExerciseCard.dart';
 import '../widgets/randomModeScreenWidgets/ExercisesListTitle.dart';
 import '../widgets/randomModeScreenWidgets/ReselectExercisesButton.dart';
 import '../widgets/randomModeScreenWidgets/ExercisesListContainer.dart';
+import '../models/ExerciseRoutine.dart';
 import 'dart:math';
+
 
 class RandomModeScreen extends StatefulWidget {
   @override
@@ -14,16 +16,14 @@ class RandomModeScreen extends StatefulWidget {
 
 class _RandomModeScreenState extends State<RandomModeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  var _exerciseRoutine = ExerciseRoutine(numberOfSets: 0, selectedExercisesIndexs: null);
+  
   /*
-  * Selects randomly the list of exercises for today's training.
-  * @param screenHeight: The height of the device's screen given by a mediaQuery.
-  * @param screenWidth: The width of the device's screen given by a mediaQuery.
-  * return a list of widgets containing cards widgets with the selected exercises.
+  * Selects randomly the list of exercises for today's training returning their indexs
+  * return a a set with the index of the selected exercises
   */
-  List<Widget> _getSelectedExercises(double screenHeight, double screenWidth) {
+  Set<int> _getSelectedExercisesIndexs() {
     Random random = new Random();
-    List<Widget> exercises = <Widget>[];
     Set<int> selectedExercisesSet = Set();
 
     //Iterates until get 5 exercises inside de "exercises" array.
@@ -34,7 +34,6 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
       //If we have no exercises inside selectedExercisesSet, then we add a new exercise to our list, and we add the exercise's index to the set.
       //If we don't have the exercise's index inside our set, then we add a new exercise to our list and we add the exercise's index to the set.
       if(selectedExercisesSet.isEmpty || !selectedExercisesSet.contains(randomNumber)) {
-        exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: randomNumber));
         selectedExercisesSet.add(randomNumber);
 
         //If we have five index in our set that means that we have five exercises in our Array, so we break out of the loop.
@@ -44,6 +43,23 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
       }
     }
 
+    return selectedExercisesSet;
+  }
+
+  /*
+  * Get the cards with the selected exercises to be printed on the screen.
+  * @param screenHeight: The height of the device's screen given by a mediaQuery.
+  * @param screenWidth: The width of the device's screen given by a mediaQuery.
+  * @param exercisesIndexs: Set with the index of the selected exercises to be perform.
+  * return a list of widgets containing cards widgets with the selected exercises.
+  */
+  List<Widget> _getSelectedExercisesCards(double screenHeight, double screenWidth, Set<int> exercisesIndexs) {
+    List<Widget> exercises = <Widget>[];
+
+    for (int exerciseIndex in exercisesIndexs) {
+      exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: exerciseIndex));
+    }
+
     return exercises;
   } //getSelectedExercises()
 
@@ -51,12 +67,12 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     setState(() {});
   }//_reselectExercises()
 
-  void _validateSetsNumber() {
+  void _setNumberOfSets() {
     if (_formKey.currentState.validate()) {
-      print("Hola");
-    }
-    else {
-      print("No hola");
+      _formKey.currentState..save();
+
+      print(_exerciseRoutine.numberOfSets);
+      print(_exerciseRoutine.selectedExercisesIndexs);
     }
   }//_validateSetsNumber()
 
@@ -69,7 +85,8 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    List<Widget> exercisesListWidgets = _getSelectedExercises(screenHeight, screenWidth);
+    Set<int> selectedExercisesIndexs = _getSelectedExercisesIndexs();
+    List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, selectedExercisesIndexs);
 
     return Scaffold(
         appBar: PreferredSize(
@@ -136,6 +153,9 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                                   return null;
                                 }
                               },
+                              onSaved: (value) {
+                                _exerciseRoutine = ExerciseRoutine(numberOfSets: int.parse(value), selectedExercisesIndexs: selectedExercisesIndexs);
+                              },
                               decoration: InputDecoration(
                                 labelText: "Number of set",
                                 labelStyle: TextStyle(color: Color(0xFF01CBC6), fontSize: screenHeight * 0.018),
@@ -161,7 +181,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                             color: Color(0xFF01CBC6),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
-                            onPressed: _validateSetsNumber,
+                            onPressed: _setNumberOfSets,
                             child: Text("Start Exercise",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: screenHeight * 0.027)),

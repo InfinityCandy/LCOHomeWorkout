@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/MainScreen.dart';
-import './screens/randomModeScreen.dart';
+import './screens/RandomModeScreen.dart';
 import './screens/DaywiseModeScreen.dart';
 
 void main() => runApp(MyApp());

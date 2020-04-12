@@ -33,7 +33,7 @@ class ExerciseCard extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                          Constants.EXERCISES_LIST[0][randomNumber.toString()]["Asset"]))),
+                          Constants.EXERCISES_LIST[0][randomNumber]["Asset"]))),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -43,7 +43,7 @@ class ExerciseCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: screenWidth * 0.045),
                   child: Text(
                     "Exercise: " +
-                        Constants.EXERCISES_LIST[0][randomNumber.toString()]
+                        Constants.EXERCISES_LIST[0][randomNumber]
                             ["ExerciseName"],
                     style: TextStyle(
                         fontSize: screenHeight * 0.022,
@@ -54,7 +54,7 @@ class ExerciseCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: screenWidth * 0.045),
                   child: Text(
                     "Duration: " +
-                        Constants.EXERCISES_LIST[0][randomNumber.toString()]["Duration"],
+                        Constants.EXERCISES_LIST[0][randomNumber]["Duration"],
                     style: TextStyle(
                         fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.w500),
