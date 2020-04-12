@@ -56,8 +56,8 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
   List<Widget> _getSelectedExercisesCards(double screenHeight, double screenWidth, Set<int> exercisesIndexs) {
     List<Widget> exercises = <Widget>[];
 
-    for (int exerciseIndex in exercisesIndexs) {
-      exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, randomNumber: exerciseIndex));
+    for(int exerciseIndex in exercisesIndexs) {
+      exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, exerciseIndex: exerciseIndex));
     }
 
     return exercises;
@@ -70,9 +70,8 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
   void _setNumberOfSets() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState..save();
-
-      print(_exerciseRoutine.numberOfSets);
-      print(_exerciseRoutine.selectedExercisesIndexs);
+      
+      Navigator.pushReplacementNamed(context, "/exercisingScreen");
     }
   }//_validateSetsNumber()
 
@@ -207,6 +206,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
           backgroundColor: Color(0xFFae37d2),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,);
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop
+    );
   }
 }

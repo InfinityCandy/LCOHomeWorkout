@@ -8,7 +8,10 @@ class ExerciseCard extends StatelessWidget {
   final exerciseIndex;
 
   //Constructor
-  ExerciseCard({@required this.screenHeight, @required this.screenWidth, @required this.exerciseIndex});
+  ExerciseCard(
+      {@required this.screenHeight,
+      @required this.screenWidth,
+      @required this.exerciseIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +46,7 @@ class ExerciseCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: screenWidth * 0.045),
                   child: Text(
                     "Exercise: " +
-                        Constants.EXERCISES_LIST[exerciseIndex]
-                            ["ExerciseName"],
+                        Constants.EXERCISES_LIST[exerciseIndex]["ExerciseName"],
                     style: TextStyle(
                         fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.w500),

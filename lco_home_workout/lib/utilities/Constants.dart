@@ -1,6 +1,6 @@
 library constants;
 
-const EXERCISES_LIST = const [
+const EXERCISES_LIST = const 
     {
       0: {
         "ExerciseName": "Assisted Press",
@@ -48,16 +48,16 @@ const EXERCISES_LIST = const [
         "Asset": "assets/images/SittedRows.png"
       }
     }
-  ];
+  ;
 
-const EXERCISES_PER_WEEK_DAY = const [
+const EXERCISES_PER_WEEK_DAY = const 
   {
-    "Monday": {1, 2, 3, 4, 5},
-    "Tuesday": {2, 3, 4, 5, 6},
-    "Wednesday": {3, 4, 5, 6, 7},
-    "Thursday": {4, 5, 6, 7, 8},
-    "Friday": {5, 4, 3, 7, 8},
-    "Saturday": {8, 1, 2, 3, 5},
-    "Sunday": {5, 6, 7, 8, 1}
+    "Monday": [1, 2, 3, 4, 5],
+    "Tuesday": [2, 3, 4, 5, 6],
+    "Wednesday": [3, 4, 5, 6, 7],
+    "Thursday": [4, 5, 6, 7, 8],
+    "Friday": [5, 4, 3, 7, 8],
+    "Saturday": [8, 0, 2, 3, 5],
+    "Sunday": [5, 6, 7, 8, 0]
   }
-];
+;
