@@ -16,6 +16,9 @@ class ExerciseCard extends StatelessWidget {
       height: screenHeight * 0.123,
       width: screenWidth * 0.95,
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
+        ),
         margin: EdgeInsets.only(
             top: screenHeight * 0.01,
             right: screenWidth * 0.02,

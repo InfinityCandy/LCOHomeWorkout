@@ -69,9 +69,9 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
 
   void _setNumberOfSets() {
     if (_formKey.currentState.validate()) {
-      _formKey.currentState..save();
+      _formKey.currentState.save();
       
-      Navigator.pushReplacementNamed(context, "/exercisingScreen");
+      Navigator.pushReplacementNamed(context, "/exercisingScreen", arguments: {"exerciseRoutine": _exerciseRoutine});
     }
   }//_validateSetsNumber()
 
@@ -103,8 +103,8 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
               decoration: BoxDecoration(color: Color(0x22d1d8e0)),
             ),
             SingleChildScrollView(
-                child: Column(
-              children: <Widget>[
+              child: Column(
+                children: <Widget>[
                 ExercisesListContainer(
                   screenHeight: screenHeight, 
                   screenWidth: screenWidth, 

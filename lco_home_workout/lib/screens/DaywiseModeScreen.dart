@@ -51,7 +51,7 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState..save();
       
-      Navigator.pushReplacementNamed(context, "/exercisingScreen");
+      Navigator.pushReplacementNamed(context, "/exercisingScreen", arguments: {"exerciseRoutine": _exerciseRoutine});
     }
   }//_validateSetsNumber()
 

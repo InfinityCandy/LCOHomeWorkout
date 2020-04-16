@@ -6,12 +6,14 @@ class ExerciseCard extends StatelessWidget {
   final screenHeight;
   final screenWidth;
   final exerciseIndex;
+  final selected;
 
   //Constructor
   ExerciseCard(
       {@required this.screenHeight,
       @required this.screenWidth,
-      @required this.exerciseIndex});
+      @required this.exerciseIndex, 
+      @required this.selected});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,12 @@ class ExerciseCard extends StatelessWidget {
       height: screenHeight * 0.123,
       width: screenWidth * 0.95,
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-        ),
+        shape: selected ? RoundedRectangleBorder(
+          side: BorderSide(color: Colors.blue, width: 2.0),
+          borderRadius: BorderRadius.circular(10)) 
+          : RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10))
+        ,
         margin: EdgeInsets.only(
             top: screenHeight * 0.01,
             right: screenWidth * 0.02,
