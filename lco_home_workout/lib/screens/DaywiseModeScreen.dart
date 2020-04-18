@@ -65,7 +65,7 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
 
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(screenHeight * 0.080),
+          preferredSize: Size.fromHeight(screenHeight * 0.084),
           child: AppBar(
             automaticallyImplyLeading: false,
             title: Image.asset("assets/images/LCO_workout_logo.png",
@@ -96,7 +96,7 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
                       right: screenWidth * 0.02,
                       left: screenWidth * 0.02,
                       bottom: screenHeight * 0.01),
-                  height: screenHeight * 0.23,
+                  height: screenHeight * 0.25,
                   width: screenWidth,
                   child: Card(
                     elevation: 4,
@@ -123,10 +123,15 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               validator: (String setsNumeber) {
-                                if (setsNumeber == "") {
-                                  return "Enter the number of sets you wish to do";
-                                } else {
-                                  return null;
+                                if(double.tryParse(setsNumeber) != null) {
+                                  if (setsNumeber == "") {
+                                    return "Enter the number of sets you wish to do";
+                                  } else {
+                                    return null;
+                                  }
+                                }
+                                else {
+                                  return "Enter a valid numeric value";
                                 }
                               },
                               onSaved: (value) {

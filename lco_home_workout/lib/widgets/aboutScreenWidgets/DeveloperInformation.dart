@@ -18,17 +18,17 @@ class DeveloperInformation extends StatelessWidget {
               left: screenHeight * 0.01,
               bottom: screenHeight * 0.02),
           child: Text("Luis Alejandro Salazar",
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600)),
+              style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600)),
         ),
         Container(
           margin: EdgeInsets.only(left: screenHeight * 0.01),
           child: Text("Fullstack web developer",
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600)),
+              style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600)),
         ),
         Container(
           margin: EdgeInsets.only(left: screenHeight * 0.01),
           child: Text("& mobile developer",
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600)),
+              style: TextStyle(fontSize: screenHeight * 0.022, fontWeight: FontWeight.w600)),
         ),
       ],
     );

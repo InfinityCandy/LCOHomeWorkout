@@ -18,7 +18,7 @@ class ExerciseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.123,
+      height: screenHeight * 0.145,
       width: screenWidth * 0.95,
       child: Card(
         shape: selected ? RoundedRectangleBorder(
@@ -56,7 +56,7 @@ class ExerciseCard extends StatelessWidget {
                     "Exercise: " +
                         Constants.EXERCISES_LIST[exerciseIndex]["ExerciseName"],
                     style: TextStyle(
-                        fontSize: screenHeight * 0.022,
+                        fontSize: screenHeight * 0.024,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -66,7 +66,7 @@ class ExerciseCard extends StatelessWidget {
                     "Duration: " +
                         Constants.EXERCISES_LIST[exerciseIndex]["Duration"],
                     style: TextStyle(
-                        fontSize: screenHeight * 0.022,
+                        fontSize: screenHeight * 0.024,
                         fontWeight: FontWeight.w500),
                   ),
                 )

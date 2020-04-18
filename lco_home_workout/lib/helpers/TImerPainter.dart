@@ -19,7 +19,7 @@ class TimerPainter extends CustomPainter {
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
 
-    canvas.drawCircle(Offset(this.screenWidth * 0.475, this.screenHeight * 0.235), size.width / 2.2, paint);
+    canvas.drawCircle(Offset(this.screenWidth * 0.475, this.screenHeight * 0.235), size.width / 2.5, paint);
     paint.color = color;
     //double progress = (1.0 - animation.value) * 2 * math.pi;
   }

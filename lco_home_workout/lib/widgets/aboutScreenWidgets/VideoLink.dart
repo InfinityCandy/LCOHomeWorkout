@@ -10,7 +10,7 @@ class VideoLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(left: 10, top: 20, right: 8),
+        margin: EdgeInsets.only(left: screenWidth * 0.025, top: screenHeight * 0.023),
         child: InkWell(
           onTap: () => launch(
               "https://www.youtube.com/watch?v=VFrKjhcTAzE&list=WL&index=48&t=619s"),
@@ -20,13 +20,13 @@ class VideoLink extends StatelessWidget {
                   text: "Link to the video challenge: ",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: screenHeight * 0.018,
                       fontWeight: FontWeight.w700)),
               TextSpan(
                   text: "Youtube Video",
                   style: TextStyle(
                       color: Colors.pinkAccent,
-                      fontSize: 16,
+                      fontSize: screenHeight * 0.018,
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline))
             ]),

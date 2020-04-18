@@ -14,7 +14,7 @@ class MainScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(screenHeight * 0.080),
+        preferredSize: Size.fromHeight(screenHeight * 0.084),
         child: AppBar(
           title: Image.asset("assets/images/LCO_workout_logo.png",
               fit: BoxFit.contain),

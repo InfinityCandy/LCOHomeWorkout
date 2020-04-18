@@ -22,7 +22,7 @@ class ExercisesListContainer extends StatelessWidget {
           top: screenHeight * 0.015,
           right: screenWidth * 0.02,
           left: screenWidth * 0.02),
-      height: screenHeight * 0.81,
+      height: screenHeight * 0.92,
       width: screenWidth,
       child: Card(
         elevation: 4,

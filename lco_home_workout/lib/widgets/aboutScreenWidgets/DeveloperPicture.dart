@@ -10,8 +10,8 @@ class DeveloperPicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin:
-            EdgeInsets.only(top: screenHeight * 0.01, left: screenWidth * 0.01),
-        width: screenWidth * 0.35,
+            EdgeInsets.only(top: screenHeight * 0.01, left: screenWidth * 0.03),
+        width: screenWidth * 0.30,
         decoration: BoxDecoration(
             color: Color(0xFFE74292),
             shape: BoxShape.circle,

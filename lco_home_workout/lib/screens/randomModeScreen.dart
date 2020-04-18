@@ -89,7 +89,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
 
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(screenHeight * 0.080),
+          preferredSize: Size.fromHeight(screenHeight * 0.084),
           child: AppBar(
             automaticallyImplyLeading: false,
             title: Image.asset("assets/images/LCO_workout_logo.png",
@@ -117,7 +117,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
                       right: screenWidth * 0.02,
                       left: screenWidth * 0.02,
                       bottom: screenHeight * 0.01),
-                  height: screenHeight * 0.23,
+                  height: screenHeight * 0.25,
                   width: screenWidth,
                   child: Card(
                     elevation: 4,

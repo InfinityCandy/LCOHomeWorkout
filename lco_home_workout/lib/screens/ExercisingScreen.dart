@@ -48,7 +48,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
 
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(screenHeight * 0.080),
+          preferredSize: Size.fromHeight(screenHeight * 0.084),
           child: AppBar(
             automaticallyImplyLeading: false,
             title: Image.asset("assets/images/LCO_workout_logo.png",
