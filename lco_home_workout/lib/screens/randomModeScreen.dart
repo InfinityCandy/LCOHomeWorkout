@@ -71,7 +71,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       
-      Navigator.pushReplacementNamed(context, "/exercisingScreen", arguments: {"exerciseRoutine": _exerciseRoutine});
+      Navigator.pushReplacementNamed(context, "/exercising", arguments: {"exerciseRoutine": _exerciseRoutine});
     }
   }//_validateSetsNumber()
 

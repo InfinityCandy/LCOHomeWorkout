@@ -20,7 +20,7 @@ class RandomModeButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           onPressed: () {
-            Navigator.pushNamed(context, "/randomMode");
+            Navigator.pushNamed(context, "/random");
           },
           child: Text(
             "Random",

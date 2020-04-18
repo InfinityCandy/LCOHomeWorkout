@@ -51,7 +51,7 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState..save();
       
-      Navigator.pushReplacementNamed(context, "/exercisingScreen", arguments: {"exerciseRoutine": _exerciseRoutine});
+      Navigator.pushReplacementNamed(context, "/exercising", arguments: {"exerciseRoutine": _exerciseRoutine});
     }
   }//_validateSetsNumber()
 
@@ -79,7 +79,7 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
               decoration: BoxDecoration(color: Color(0x22d1d8e0)),
             ),
             SingleChildScrollView(
-                child: Column(
+              child: Column(
               children: <Widget>[
                 ExercisesListContainer(
                   screenHeight: screenHeight,

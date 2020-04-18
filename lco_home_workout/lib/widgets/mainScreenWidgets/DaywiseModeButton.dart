@@ -20,7 +20,7 @@ class DaywiseModeButton extends StatelessWidget {
           color: Color(0xFFE74292),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           onPressed: () {
-            Navigator.pushNamed(context, "/dayWiseMode");
+            Navigator.pushNamed(context, "/dayWise");
           },
           child: Text(
             "Daywise",

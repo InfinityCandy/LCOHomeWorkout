@@ -3,6 +3,7 @@ import './screens/MainScreen.dart';
 import './screens/RandomModeScreen.dart';
 import './screens/DaywiseModeScreen.dart';
 import './screens/ExercisingScreen.dart';
+import './screens/AboutScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,9 +16,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: <String, WidgetBuilder> {
         "/": (BuildContext context) => MainScreen(),
-        "/randomMode": (BuildContext context) => RandomModeScreen(),
-        "/dayWiseMode": (BuildContext context) => DaywiseModeScreen(),
-        "/exercisingScreen": (BuildContext context) => ExercisingScreen()
+        "/random": (BuildContext context) => RandomModeScreen(),
+        "/dayWise": (BuildContext context) => DaywiseModeScreen(),
+        "/exercising": (BuildContext context) => ExercisingScreen(),
+        "/about": (BuildContext context) => AboutScreen()
       },
     );
   }
