@@ -10,6 +10,16 @@ class ExerciseCard extends StatelessWidget {
   //Constructor
   ExerciseCard({@required this.screenHeight, @required this.screenWidth, @required this.exerciseIndex});
 
+  String getExerciseDuration(String durationInSeconds) {
+    Duration duration = Duration(seconds: int.parse(durationInSeconds));
+    String exerciseDuration = "";
+
+    exerciseDuration = exerciseDuration + duration.inMinutes.toString();
+    exerciseDuration = exerciseDuration + ":" + (duration.inSeconds % 60).toString().padLeft(2, '0');
+
+    return exerciseDuration;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,11 +49,10 @@ class ExerciseCard extends StatelessWidget {
                           Constants.EXERCISES_LIST[exerciseIndex]["Asset"]))),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(left: screenWidth * 0.045),
+                  margin: EdgeInsets.only(top: screenHeight * 0.025, bottom: screenHeight * 0.01, left: screenWidth * 0.045),
                   child: Text(
                     "Exercise: " +
                         Constants.EXERCISES_LIST[exerciseIndex]
@@ -57,7 +66,7 @@ class ExerciseCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: screenWidth * 0.045),
                   child: Text(
                     "Duration: " +
-                        Constants.EXERCISES_LIST[exerciseIndex]["Duration"],
+                        getExerciseDuration(Constants.EXERCISES_LIST[exerciseIndex]["Duration"]),
                     style: TextStyle(
                         fontSize: screenHeight * 0.024,
                         fontWeight: FontWeight.w500),
