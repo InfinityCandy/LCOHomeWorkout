@@ -6,13 +6,14 @@ class TimerContainer extends StatelessWidget {
   final screenHeight;
   final screenWidth;
   final controller;
+  final timerString;
 
   //Constructor
-  TimerContainer({
-    @required this.screenHeight,
-    @required this.screenWidth,
-    this.controller
-  });
+  TimerContainer(
+      {@required this.screenHeight,
+      @required this.screenWidth,
+      @required this.controller,
+      @required this.timerString});
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +38,26 @@ class TimerContainer extends StatelessWidget {
                 bottomLeft: Radius.circular(20))),
         child: AnimatedBuilder(
           animation: controller,
-          builder:
-          (BuildContext context, Widget child) {
-            return CustomPaint(
-              painter: TimerPainter(
-                animation: controller,
-                backgroundColor: Color(0xFFE74292),
-                color: Colors.red,
-                screenHeight: screenHeight,
-                screenWidth: screenWidth
+          builder: (BuildContext context, Widget child) {
+            return Stack(children: <Widget>[
+              Positioned.fill(
+                  child: CustomPaint(
+                      painter: TimerPainter(
+                          animation: controller,
+                          backgroundColor: Color(0xFFE74292),
+                          color: Color(0xFFd1d8e0),
+                          screenHeight: screenHeight,
+                          screenWidth: screenWidth))),
+              Center(
+                child: Text(
+                  timerString,
+                  style: TextStyle(
+                    fontSize: 90, 
+                    color: Color(0xFFE74292)
+                  ),
+                ),
               )
-            );
+            ]);
           },
         ),
       ),

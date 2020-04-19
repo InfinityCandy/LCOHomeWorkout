@@ -18,13 +18,21 @@ class TimerPainter extends CustomPainter {
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.stroke;
-
+      
     canvas.drawCircle(Offset(this.screenWidth * 0.475, this.screenHeight * 0.235), size.width / 2.5, paint);
     paint.color = color;
-    //double progress = (1.0 - animation.value) * 2 * math.pi;
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+    canvas.drawArc(Offset(this.screenWidth * 0.095, this.screenHeight * 0.059) & Size(size.width / 1.25, size.height / 1.35), math.pi * 1.5, progress, false, paint);
   }
-
-  @override
-  bool shouldRepaint(TimerPainter old) {}
+  
+@override
+bool shouldRepaint(TimerPainter old) {
+  if(animation.value != old.animation.value) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 
 }
