@@ -11,7 +11,6 @@ class ExercisingScreen extends StatefulWidget {
   }
 }
 
-
 class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderStateMixin { //Investigar TickerProviderStateMixin
     AnimationController _animationController;
     bool _initTimeFlag = false;
@@ -32,11 +31,6 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     return exercises;
   } //getSelectedExercises()
 
-  String get timerString {
-    Duration duration = _animationController.duration * _animationController.value;
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
-  }
-
   @override
   void initState() {
     super.initState();
@@ -54,8 +48,6 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     final screenWidth = MediaQuery.of(context).size.width;
     final exerciseRoutineArgs = ModalRoute.of(context).settings.arguments as Map<String, ExerciseRoutine>;
     List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs);
-
-    print(timerString);
 
     return Scaffold(
         appBar: PreferredSize(
@@ -78,8 +70,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
                   TimerContainer(
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
-                    controller: _animationController,
-                    timerString: timerString
+                    controller: _animationController
                   ),
                   /*ExercisesListContainer(
                     screenHeight: screenHeight,
