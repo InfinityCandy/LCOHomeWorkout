@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   intl: ^0.16.1
   url_launcher: ^5.4.2
+  audioplayers: ^0.15.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,6 +57,10 @@ flutter:
     - assets/images/OneLegBalance.png
     - assets/images/SittedRows.png
     - assets/images/Home_Icon.png
+    - assets/music/RockSong1.mp3
+    - assets/music/RockSong2.mp3
+    - assets/music/RockSong3.mp3
+    - assets/music/RockSong4.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

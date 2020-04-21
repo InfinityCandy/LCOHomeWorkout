@@ -5,47 +5,56 @@ const EXERCISES_LIST = const
       0: {
         "ExerciseName": "Assisted Press",
         "Duration": "60",
-        "Asset": "assets/images/AssistedPress.png"
+        "Image": "assets/images/AssistedPress.png",
+        "Music": "music/RockSong1.mp3"
       },
       1: {
         "ExerciseName": "Ball Pushup",
         "Duration": "120",
-        "Asset": "assets/images/BallPushups.png"
+        "Image": "assets/images/BallPushups.png",
+        "Music": "music/RockSong2.mp3"
       },
       2: {
         "ExerciseName": "Bench Press",
         "Duration": "60",
-        "Asset": "assets/images/BenchPress.png"
+        "Image": "assets/images/BenchPress.png",
+        "Music": "music/RockSong3.mp3"
       },
       3: {
         "ExerciseName": "Bicep Curls",
         "Duration": "300",
-        "Asset": "assets/images/BicepsCurls.png"
+        "Image": "assets/images/BicepsCurls.png",
+        "Music": "music/RockSong4.mp3"
       },
       4: {
         "ExerciseName": "Crunches",
         "Duration": "60",
-        "Asset": "assets/images/Crunches.png"
+        "Image": "assets/images/Crunches.png",
+        "Music": "music/RockSong1.mp3"
       },
       5: {
         "ExerciseName": "Dumbell Pushup",
         "Duration": "120",
-        "Asset": "assets/images/DumbellPushups.png"
+        "Image": "assets/images/DumbellPushups.png",
+        "Music": "music/RockSong2.mp3"
       },
       6: {
         "ExerciseName": "Incline Bench P.",
         "Duration": "120",
-        "Asset": "assets/images/InclineBenchPress.png"
+        "Image": "assets/images/InclineBenchPress.png",
+        "Music": "music/RockSong3.mp3"
       },
       7: {
         "ExerciseName": "One Leg Balance",
         "Duration": "480",
-        "Asset": "assets/images/OneLegBalance.png"
+        "Image": "assets/images/OneLegBalance.png",
+        "Music": "music/RockSong4.mp3"
       },
       8: {
         "ExerciseName": "Sitted Row",
         "Duration": "45",
-        "Asset": "assets/images/SittedRows.png"
+        "Image": "assets/images/SittedRows.png",
+        "Music": "music/RockSong1.mp3"
       }
     }
   ;

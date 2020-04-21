@@ -55,7 +55,7 @@ class ExerciseCard extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                          Constants.EXERCISES_LIST[exerciseIndex]["Asset"]))),
+                          Constants.EXERCISES_LIST[exerciseIndex]["Image"]))),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

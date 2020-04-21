@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'dart:io';
 import '../widgets/exercisingScreenWidgets/ExercisesListContainer.dart';
 import '../widgets/exercisingScreenWidgets/ExerciseCard.dart';
 import '../widgets/exercisingScreenWidgets/TimerContainer.dart';
@@ -22,6 +25,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     bool _lastSet = false;
     int _setsCounter;
     bool _selectExercise;
+    AudioPlayer _advancedPlayer;
     Map<String, ExerciseRoutine> _exerciseRoutineArgs;
 
 
@@ -71,6 +75,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
       setState(() {
         _animationController.duration = Duration(seconds: 40);
         _animationController.reverse(from: _animationController.value = 1);
+        pauseMusicPlaying();
         _exerciseTimeFlag = false;
         _restTimeFlag = true;
         _selectExercise = false;
@@ -93,6 +98,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
             _exerciseIndexCounter = _exerciseIndexCounter + 1;
             
             int selectedExerciseTime = int.parse(Constants.EXERCISES_LIST[selectedExercise]["Duration"]);
+            playSelectedMusic(Constants.EXERCISES_LIST[selectedExercise]["Music"]);
             _animationController.duration = Duration(seconds: selectedExerciseTime);
             _animationController.reverse(from: _animationController.value = 1);
             _initTimeFlag = false;
@@ -113,6 +119,34 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
       }
     }
   }
+
+  static void monitorNotificationStateHandler(AudioPlayerState value) {
+    print("state => $value");
+  }
+
+  Future playSelectedMusic(String selectedSongPath) async {
+    _advancedPlayer = await AudioCache().loop(selectedSongPath);
+
+    //We need to add this to avoid logging any errors when the music finish playing
+    if(Platform.isIOS) {
+      _advancedPlayer.monitorNotificationStateChanges(monitorNotificationStateHandler);
+    }
+  }
+
+  Future pauseMusicPlaying() async {
+    await _advancedPlayer.pause();
+  }
+
+  Future resumeMusicPlaying() async {
+    await _advancedPlayer.resume();
+  }
+
+  @override
+  void dispose() {
+    _advancedPlayer = null;
+    super.dispose();
+  }
+
 
   void finishExercise() {
       Navigator.pop(context);
@@ -183,6 +217,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
                           child: RaisedButton(
                             onPressed: () {
                               if(_animationController.isAnimating) {
+                                pauseMusicPlaying();
                                 _animationController.stop();
                                   setState(() {}); //We use setState() to update the botton's text
                                   }
@@ -194,6 +229,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
                                     from: _animationController.value == 0.0
                                     ? 1.0
                                     : _animationController.value);
+                                    resumeMusicPlaying();
                                   }
                                 },
                                 elevation: 4,
@@ -222,6 +258,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
           child: FloatingActionButton(
             onPressed: () {                                  
               if(_animationController.isAnimating) {
+                pauseMusicPlaying();
                 _animationController.stop();
               }
               Navigator.pop(context);
