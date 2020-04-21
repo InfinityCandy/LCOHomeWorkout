@@ -15,9 +15,11 @@ class RandomModeScreen extends StatefulWidget {
 }
 
 class _RandomModeScreenState extends State<RandomModeScreen> {
+  //Attributes
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var _exerciseRoutine = ExerciseRoutine(numberOfSets: 0, selectedExercisesIndexs: null);
   
+  //Methods
   /*
   * Selects randomly the list of exercises for today's training returning their indexs
   * return a a set with the index of the selected exercises
@@ -44,7 +46,7 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     }
 
     return selectedExercisesSet;
-  }
+  }//_getSelectedExercisesIndexs()
 
   /*
   * Get the cards with the selected exercises to be printed on the screen.
@@ -63,11 +65,18 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     return exercises;
   } //getSelectedExercises()
 
+  /*
+  * Reselects the previously selected exercises randomly
+  */
   void _reselectExercises() {
     setState(() {});
   }//_reselectExercises()
 
+  /*
+  * Sets the number of sets after the user introduce them and pass them to the exercising screen as arguments
+  */
   void _setNumberOfSets() {
+    //Validates if the user introduced the number of sets
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       

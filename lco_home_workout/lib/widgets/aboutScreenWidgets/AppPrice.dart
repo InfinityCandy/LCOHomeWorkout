@@ -19,7 +19,7 @@ class AppPriceText extends StatelessWidget {
                 fontSize: screenHeight * 0.018,
                 fontWeight: FontWeight.w700)),
         TextSpan(
-            text: "\$120",
+            text: "\$40,000",
             style: TextStyle(
                 color: Colors.black, fontSize: screenHeight * 0.018, fontWeight: FontWeight.w500))
       ])),

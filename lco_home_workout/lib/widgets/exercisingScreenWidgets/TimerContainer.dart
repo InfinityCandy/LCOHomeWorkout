@@ -17,6 +17,10 @@ class TimerContainer extends StatefulWidget {
 }
 
 class _TimerContainerState extends State<TimerContainer> {
+  /*
+  * gets the exercise durantion for the timer's animation and text, calculating it dinamicly after every "rebuild" of the widget
+  * return The remaining time of the exercise period
+  */
   String get timerString {
     Duration duration = widget.controller.duration * widget.controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';

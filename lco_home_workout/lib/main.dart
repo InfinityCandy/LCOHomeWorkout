@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'LCO Home Workout',
       initialRoute: '/',
       routes: <String, WidgetBuilder> {
-        "/": (BuildContext context) => CongratulationsScreen(),
+        "/": (BuildContext context) => MainScreen(),
         "/random": (BuildContext context) => RandomModeScreen(),
         "/dayWise": (BuildContext context) => DaywiseModeScreen(),
         "/exercising": (BuildContext context) => ExercisingScreen(),

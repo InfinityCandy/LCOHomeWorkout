@@ -14,9 +14,16 @@ class DaywiseModeScreen extends StatefulWidget {
 }
 
 class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
+  //Attributes
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var _exerciseRoutine = ExerciseRoutine(numberOfSets: 0, selectedExercisesIndexs: null);
 
+  //methods
+
+  /*
+  * Gets the current week's day name
+  * return the current weeks day name in its long form (Monday, Saturday, Sunday...)
+  */
   String _getWeekDayName() {
     String weekdayName;
     DateTime date = DateTime.now();
@@ -26,6 +33,10 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     return weekdayName;
   } //_getWeekDayName()
 
+  /*
+  * Gets the exercise index that the user has to permor according to the week's day
+  * return A set containg the index of the selected exercises according to the week's day
+  */
   Set<int> _getExercisesIndexs(String weekday) {
     List<int> exercisesIndexList = Constants.EXERCISES_PER_WEEK_DAY[weekday];
     Set<int> exercisesIndexSet = Set();
@@ -37,6 +48,13 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     return exercisesIndexSet;
   } //_getExercisesIndexs()
 
+  /*
+  * Get the cards with the selected exercises to be printed on the screen.
+  * @param screenHeight: The height of the device's screen given by a mediaQuery.
+  * @param screenWidth: The width of the device's screen given by a mediaQuery.
+  * @param exercisesIndexs: Set with the index of the selected exercises to be perform.
+  * return a list of widgets containing cards widgets with the selected exercises.
+  */
   List<Widget> _getSelectedExercisesCards(double screenHeight, double screenWidth, Set<int> exercisesIndexs) {
     List<Widget> exercises = <Widget>[];
 
@@ -47,6 +65,9 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     return exercises;
   } //getSelectedExercises()
 
+  /*
+  * Sets the number of sets after the user introduce them and pass them to the exercising screen as arguments
+  */
   void _setNumberOfSets() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState..save();

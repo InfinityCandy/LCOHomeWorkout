@@ -20,7 +20,7 @@ class DevelopmentTimeText extends StatelessWidget {
                   fontSize: screenHeight * 0.018,
                   fontWeight: FontWeight.w700)),
           TextSpan(
-              text: "24 hours",
+              text: "28 hours aprox.",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: screenHeight * 0.018,

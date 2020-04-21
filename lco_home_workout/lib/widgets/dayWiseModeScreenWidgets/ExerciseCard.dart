@@ -10,6 +10,11 @@ class ExerciseCard extends StatelessWidget {
   //Constructor
   ExerciseCard({@required this.screenHeight, @required this.screenWidth, @required this.exerciseIndex});
 
+  /*
+  * Gets the duration of the current exercise passed as a class parameter
+  * @param durationInSeconds: The exercise's duration in seconds and in String format
+  * return exercise duration in minutes and seconds and ":" in beetwen and in string format
+  */ 
   String getExerciseDuration(String durationInSeconds) {
     Duration duration = Duration(seconds: int.parse(durationInSeconds));
     String exerciseDuration = "";
