@@ -47,6 +47,7 @@ flutter:
   assets:
     - assets/images/LCO_workout_logo.png
     - assets/images/LCO_LOGO.png
+    - assets/images/DeveloperImage.png
     - assets/images/AssistedPress.png
     - assets/images/BallPushups.png
     - assets/images/BenchPress.png
@@ -57,6 +58,7 @@ flutter:
     - assets/images/OneLegBalance.png
     - assets/images/SittedRows.png
     - assets/images/Home_Icon.png
+    - assets/images/CongratulationsIcon.png
     - assets/music/RockSong1.mp3
     - assets/music/RockSong2.mp3
     - assets/music/RockSong3.mp3
@@ -73,7 +75,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
+          style: italic
+          weight: 600
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

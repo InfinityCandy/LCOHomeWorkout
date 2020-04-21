@@ -15,9 +15,11 @@ class SelectModeText extends StatelessWidget {
       child: Text(
         "SELECT A MODE",
         style: TextStyle(
+          fontFamily: "Poppins",
             color: Color(0xFF2d2d2d),
             fontSize: screenHeight * 0.040,
-            fontWeight: FontWeight.w700),
+            fontWeight: FontWeight.w700
+            ),
       ),
     );
   }

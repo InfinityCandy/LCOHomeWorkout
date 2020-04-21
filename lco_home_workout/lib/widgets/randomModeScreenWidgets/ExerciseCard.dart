@@ -59,7 +59,7 @@ class ExerciseCard extends StatelessWidget {
                             ["ExerciseName"],
                     style: TextStyle(
                         fontSize: screenHeight * 0.024,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
                 Container(
@@ -68,8 +68,9 @@ class ExerciseCard extends StatelessWidget {
                     "Duration: " +
                         getExerciseDuration(Constants.EXERCISES_LIST[exerciseIndex]["Duration"]),
                     style: TextStyle(
+                        fontFamily: "Ubuntu",
                         fontSize: screenHeight * 0.024,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w600),
                   ),
                 )
               ],

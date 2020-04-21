@@ -17,7 +17,7 @@ class DeveloperPicture extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/images/BenchPress.png")
+                image: AssetImage("assets/images/DeveloperImage.png")
             )
         )
     );

@@ -16,25 +16,35 @@ class ExercisingScreen extends StatefulWidget {
   }
 }
 
-class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderStateMixin { //Investigar TickerProviderStateMixin
-    AnimationController _animationController;
-    bool _initTimeFlag = false;
-    bool _exerciseTimeFlag = false;
-    bool _restTimeFlag = false;
-    int _exerciseIndexCounter = 0;
-    bool _lastSet = false;
-    int _setsCounter;
-    bool _selectExercise;
-    AudioPlayer _advancedPlayer;
-    Map<String, ExerciseRoutine> _exerciseRoutineArgs;
+class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderStateMixin { 
+  //Attributes
+  AnimationController _animationController;
+  bool _initTimeFlag = false;
+  bool _exerciseTimeFlag = false;
+  bool _restTimeFlag = false;
+  int _exerciseIndexCounter = 0;
+  int _setsCounter;
+  bool _finishExerciseFlag = false;
+  bool _isThereselectExercise;
+  AudioPlayer _advancedPlayer;
+  Map<String, ExerciseRoutine> _exerciseRoutineArgs;
 
 
-    List<Widget> _getSelectedExercisesCards(double screenHeight, double screenWidth, Set<int> exercisesIndexs, int selectedExercise, bool selectExercise) {
+  /*
+  * Gets the selected exercises cards to display them on the screen while the traning is running and does it indicating the exercise that is currently perfomed
+  * @param screenHeight: Screen height
+  * @param screenWidth: Screen width
+  * @exercisesIndexs: A set with the index of the exercises that must be performed during the traning session
+  * @performedExercise: The index of the current exercise that is being performed 
+  * @isThereSelectExercise: A boolean value that indicates if the exercising time already begun to indicate the exercise to be perform on the screen
+  * return a List of "Card()" type widgets
+  */
+  List<Widget> _getSelectedExercisesCards(double screenHeight, double screenWidth, Set<int> exercisesIndexs, int performedExercise, bool isThereSelectExercise) {
     List<Widget> exercises = <Widget>[];
 
     for(int exerciseIndex in exercisesIndexs) {
-      if(selectExercise) { 
-        if(exerciseIndex == exercisesIndexs.elementAt(selectedExercise - 1)) {//Le quitamos "1" debido a que setState() se va a ejecutar antes que el método build() y eso va hacer que el contador de ejercicios siempre vaya uno arriba del ejercicio actual para cuando se ejecute build()
+      if(isThereSelectExercise) {  
+        if(exerciseIndex == exercisesIndexs.elementAt(performedExercise - 1)) {//We have to sustract "-1" beacuase setState() executes before the build() method, so that is going to make that the exercise's counter always goes one in front of the current exercisee that the user needs to performe, this is due to the Set<> starts at 0
           exercises.add(ExerciseCard(screenHeight: screenHeight, screenWidth: screenWidth, exerciseIndex: exerciseIndex, selected: true));
         }
         else {
@@ -52,78 +62,114 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
   @override
   void initState() {
     super.initState();
+
+    //The timer's animation initial values
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 3), //The animation last 3 seconds at the beginning
-      value: 1 
+      value: 1
     );
-
+    //The timer's animation should starts as soon as the exercising screen appears
     _animationController.reverse(from: _animationController.value = 1);
 
-    _selectExercise = false;
-    _initTimeFlag = true;
+    _isThereselectExercise = false; //Indicates if in this state we are going to indicate if an exercise is being perfomed on the screen
 
+    //The series of flags we are going to use during the entire life of the current screen
+    _restTimeFlag = false; //Indicates if the resting period begun
+    _finishExerciseFlag = false; //Indicates if the user already finished the exercise
+    _initTimeFlag = true; //Indicates if the preparation period begun
+
+    //We add a listener to the animatiion to listen when the timer's animation stops, to update its status
     _animationController.addStatusListener((status) {
       if(status == AnimationStatus.dismissed) {
-        _updateAnimationTime();
+        _updateExercisePeriod();
       } 
     });   
   }
 
-  void _updateAnimationTime() {
-    if(_exerciseTimeFlag == true) {
-      setState(() {
-        _animationController.duration = Duration(seconds: 40);
-        _animationController.reverse(from: _animationController.value = 1);
-        pauseMusicPlaying();
-        _exerciseTimeFlag = false;
-        _restTimeFlag = true;
-        _selectExercise = false;
-      });
+  /*
+  * Upadte the status of the current exercise period, based on the old exercise period using the setted flags (_exerciseTimeFlag, _restTimeFlag and _restTimeFlag)
+  */
+  void _updateExercisePeriod() {
+    //If the "_finishExerciseFlag" is true, the we stop the exercise
+    if(_finishExerciseFlag == true) {
+      finishExercise();
     }
     else {
-      if(_restTimeFlag == true) {
-        setState(() {
-          _animationController.duration = Duration(seconds: 3);
+      //If the "_exerciseTimeFlag" is true that means that the user just finished his/her last exercise, so we start the resting period
+      if(_exerciseTimeFlag == true) {
+      setState(() {
+          _animationController.duration = Duration(seconds: 40);
           _animationController.reverse(from: _animationController.value = 1);
-          _restTimeFlag = false;
-          _initTimeFlag = true;
-          _selectExercise = false;
+          pauseMusicPlaying();
+          //The exercise time is over
+          _exerciseTimeFlag = false;
+          //The rest time begins
+          _restTimeFlag = true;
+          //We don't need to display the current exercise on the screen, because there is not current exercise
+          _isThereselectExercise = false;
         });
       }
       else {
-        if(_initTimeFlag == true) {
+        //If the "_restTimeFlag" is ture that means that the resting period just finished and we need to intialize the exercise within 3 seconds
+        if(_restTimeFlag == true) {
           setState(() {
-            int selectedExercise = _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.elementAt(_exerciseIndexCounter);
-            _exerciseIndexCounter = _exerciseIndexCounter + 1;
-            
-            int selectedExerciseTime = int.parse(Constants.EXERCISES_LIST[selectedExercise]["Duration"]);
-            playSelectedMusic(Constants.EXERCISES_LIST[selectedExercise]["Music"]);
-            _animationController.duration = Duration(seconds: selectedExerciseTime);
+            _animationController.duration = Duration(seconds: 3);
             _animationController.reverse(from: _animationController.value = 1);
-            _initTimeFlag = false;
-            _exerciseTimeFlag = true;
-            _selectExercise = true;
-            if(_exerciseIndexCounter == _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.length) {
-              _setsCounter = _setsCounter - 1;
-
-              if(_setsCounter == 0) {
-                finishExercise();
-              }
-              else {
-                _exerciseIndexCounter = 0;
-              }
-            }
+            //The rest time is over
+            _restTimeFlag = false;
+            //The 3 seconds init time begins
+            _initTimeFlag = true;
+            //We don't need to display the current exercise on the screen, because there is not current exercise
+            _isThereselectExercise = false;
           });
+        }
+        else {
+          //If the "_initTimeFlag" is true that means that the user is about to resume his/her exercise right now
+          if(_initTimeFlag == true) {
+            setState(() {
+              int selectedExercise = _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.elementAt(_exerciseIndexCounter);
+              int selectedExerciseTime = int.parse(Constants.EXERCISES_LIST[selectedExercise]["Duration"]);
+              playSelectedMusic(Constants.EXERCISES_LIST[selectedExercise]["Music"]);
+              _animationController.duration = Duration(seconds: selectedExerciseTime);
+              _animationController.reverse(from: _animationController.value = 1);
+
+              _exerciseIndexCounter = _exerciseIndexCounter + 1;
+              if(_exerciseIndexCounter > _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.length - 1) {
+                _setsCounter = _setsCounter - 1;
+
+                if(_setsCounter == 0) {
+                  _finishExerciseFlag = true;
+                }
+                else {
+                  _exerciseIndexCounter = 0;
+                }
+              }
+
+              //The 3 seconds init time is over
+              _initTimeFlag = false;
+              //The exercising time begins
+              _exerciseTimeFlag = true;
+              //We need to display wich exercise the use must perform, during this period, on the screen
+              _isThereselectExercise = true;
+            });
+          }
         }
       }
     }
-  }
+  }//_updateExercisePeriod()
 
+  /*Monitors when the audio finish playing and avoids any possible error message on the console
+  * @value: An AudioPlayerState() object to extract its state
+  */
   static void monitorNotificationStateHandler(AudioPlayerState value) {
     print("state => $value");
-  }
+  }//monitorNotificationStateHandler()
 
+  /*
+  * Plays the mp3 file that we passed it as parameter
+  * @selectedSongPath: The selected mp3 file path on the project folder
+  */
   Future playSelectedMusic(String selectedSongPath) async {
     _advancedPlayer = await AudioCache().loop(selectedSongPath);
 
@@ -131,12 +177,25 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     if(Platform.isIOS) {
       _advancedPlayer.monitorNotificationStateChanges(monitorNotificationStateHandler);
     }
-  }
+  }//playSelectedMusic()
 
+  /*
+  * Pauses the music that is currently being played
+  */
   Future pauseMusicPlaying() async {
     await _advancedPlayer.pause();
   }
 
+  /*
+  * Stops completely the music that is currently being played
+  */ 
+  Future stopMusicPlaying() async {
+    await _advancedPlayer.stop();
+  }
+
+  /*
+  * Restarts the music that has been paused
+  */
   Future resumeMusicPlaying() async {
     await _advancedPlayer.resume();
   }
@@ -147,9 +206,12 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     super.dispose();
   }
 
-
+  /*
+  * Stops the exercise, stoping the music and replacing the current screen with the congratulations screen
+  */
   void finishExercise() {
-      Navigator.pop(context);
+    stopMusicPlaying();
+    Navigator.pushReplacementNamed(context, "/congratulations");
   }
   
 
@@ -157,8 +219,11 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    //We get the arguments that we passed to the named route
     _exerciseRoutineArgs = ModalRoute.of(context).settings.arguments as Map<String, ExerciseRoutine>;
-    List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs, _exerciseIndexCounter, _selectExercise);
+    //We get the list of selected exercises cards
+    List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs, _exerciseIndexCounter, _isThereselectExercise);
+    //We set the number of set that the user must perform during the exercise
     _setsCounter = _exerciseRoutineArgs["exerciseRoutine"].numberOfSets;
 
     return Scaffold(
@@ -258,7 +323,7 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
           child: FloatingActionButton(
             onPressed: () {                                  
               if(_animationController.isAnimating) {
-                pauseMusicPlaying();
+                stopMusicPlaying();
                 _animationController.stop();
               }
               Navigator.pop(context);

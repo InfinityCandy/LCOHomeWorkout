@@ -4,6 +4,7 @@ import './screens/RandomModeScreen.dart';
 import './screens/DaywiseModeScreen.dart';
 import './screens/ExercisingScreen.dart';
 import './screens/AboutScreen.dart';
+import './screens/CongratulationsScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,11 +16,12 @@ class MyApp extends StatelessWidget {
       title: 'LCO Home Workout',
       initialRoute: '/',
       routes: <String, WidgetBuilder> {
-        "/": (BuildContext context) => MainScreen(),
+        "/": (BuildContext context) => CongratulationsScreen(),
         "/random": (BuildContext context) => RandomModeScreen(),
         "/dayWise": (BuildContext context) => DaywiseModeScreen(),
         "/exercising": (BuildContext context) => ExercisingScreen(),
-        "/about": (BuildContext context) => AboutScreen()
+        "/about": (BuildContext context) => AboutScreen(),
+        "/congratulations": (BuildContext context) => CongratulationsScreen()
       },
     );
   }
