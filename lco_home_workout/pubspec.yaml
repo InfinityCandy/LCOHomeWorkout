@@ -22,6 +22,7 @@ dependencies:
   intl: ^0.16.1
   url_launcher: ^5.4.2
   audioplayers: ^0.15.1
+  flutter_launcher_icons: ^0.7.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -30,6 +31,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons: 
+  android: true 
+  ios: true
+  image_path_ios: "assets/images/AppIcon.png"
+  image_path_android: "assets/images/AppIcon.png"
+  adaptive_icon_background: "assets/images/AppIcon.png"
+  adaptive_icon_foreground: "assets/images/BackgorungIcon.png"
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -63,6 +73,8 @@ flutter:
     - assets/music/RockSong2.mp3
     - assets/music/RockSong3.mp3
     - assets/music/RockSong4.mp3
+    - assets/images/AppIcon.png
+    - assets/images/BackgorungIcon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
