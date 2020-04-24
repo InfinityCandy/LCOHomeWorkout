@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LCO Home Workout',
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: (RouteSettings settings) {
         switch(settings.name) {
           case "/":

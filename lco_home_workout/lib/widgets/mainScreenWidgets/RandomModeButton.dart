@@ -25,7 +25,7 @@ class RandomModeButton extends StatelessWidget {
           child: Text(
             "Random",
             style:
-                TextStyle(color: Colors.white, fontSize: screenHeight * 0.04),
+                TextStyle(color: Colors.white, fontFamily: "Arimo", fontWeight: FontWeight.w600, fontSize: screenHeight * 0.04),
           ),
         )
     );

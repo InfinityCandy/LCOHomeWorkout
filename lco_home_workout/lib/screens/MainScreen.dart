@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: screenHeight * 0.015, right: screenWidth * 0.02, left: screenWidth * 0.02),
-            height: screenHeight * 0.85,
+            height: screenHeight * 0.83,
             width: screenWidth,
             child: Card(
               elevation: 4,

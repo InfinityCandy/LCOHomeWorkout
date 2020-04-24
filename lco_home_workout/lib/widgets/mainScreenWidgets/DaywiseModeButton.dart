@@ -14,7 +14,7 @@ class DaywiseModeButton extends StatelessWidget {
         height: screenHeight * 0.061,
         width: screenWidth * 0.6,
         margin: EdgeInsets.only(
-            top: screenHeight * 0.017, bottom: screenHeight * 0.027),
+            top: screenHeight * 0.017, bottom: screenHeight * 0.019),
         child: RaisedButton(
           elevation: 4,
           color: Color(0xFFE74292),
@@ -25,7 +25,7 @@ class DaywiseModeButton extends StatelessWidget {
           child: Text(
             "Daywise",
             style:
-                TextStyle(color: Colors.white, fontSize: screenHeight * 0.04),
+                TextStyle(color: Colors.white, fontFamily: "Arimo", fontWeight: FontWeight.w600, fontSize: screenHeight * 0.04),
           ),
         ));
   }

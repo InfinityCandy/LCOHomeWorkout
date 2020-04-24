@@ -12,7 +12,7 @@ class Aboutwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(
-            top: screenHeight * 0.035, bottom: screenHeight * 0.020),
+            top: screenHeight * 0.035, bottom: screenHeight * 0.019),
         child: GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, "/about");

@@ -94,6 +94,12 @@ flutter:
           style: italic
           weight: 600
 
+    - family: Arimo
+      fonts:
+        - asset: assets/fonts/Arimo-Regular.ttf
+        - asset: assets/fonts/Arimo-Bold.ttf
+          weight: 700
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
