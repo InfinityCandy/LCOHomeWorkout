@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wakelock/wakelock.dart';
 import '../widgets/aboutScreenWidgets/AboutCard.dart';
 
 class AboutScreen extends StatelessWidget {
@@ -6,6 +7,8 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    //Allows the screen to block or go to sleep
+    Wakelock.disable();
 
     return Scaffold(
         appBar: PreferredSize(

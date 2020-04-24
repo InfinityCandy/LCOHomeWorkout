@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:wakelock/wakelock.dart';
 import 'dart:io';
 import '../widgets/exercisingScreenWidgets/ExercisesListContainer.dart';
 import '../widgets/exercisingScreenWidgets/ExerciseCard.dart';
@@ -219,6 +220,8 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, widget.exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs, _exerciseIndexCounter, _isThereselectExercise);
     //We set the number of set that the user must perform during the exercise
     _setsCounter = widget.exerciseRoutineArgs["exerciseRoutine"].numberOfSets;
+    //Avoids the screen to block or the device to go to sleep
+    Wakelock.enable();
 
     return Scaffold(
         appBar: PreferredSize(

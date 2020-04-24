@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wakelock/wakelock.dart';
 import '../widgets/randomModeScreenWidgets/ExerciseCard.dart';
 import '../widgets/randomModeScreenWidgets/ExercisesListTitle.dart';
 import '../widgets/randomModeScreenWidgets/ReselectExercisesButton.dart';
@@ -95,6 +96,8 @@ class _RandomModeScreenState extends State<RandomModeScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     Set<int> selectedExercisesIndexs = _getSelectedExercisesIndexs();
     List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, selectedExercisesIndexs);
+    //Allows the screen to block or go to sleep
+    Wakelock.disable();
 
     return Scaffold(
         appBar: PreferredSize(

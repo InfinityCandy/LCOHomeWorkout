@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wakelock/wakelock.dart';
 import '../widgets/dayWiseModeScreenWidgets/ExerciseCard.dart';
 import '../widgets/dayWiseModeScreenWidgets/ExercisesListTitle.dart';
 import '../widgets/dayWiseModeScreenWidgets/ExercisesListContainer.dart';
@@ -83,6 +84,8 @@ class _DaywiseModeScreenState extends State<DaywiseModeScreen> {
     String weekdayName = _getWeekDayName();
     Set<int> selectedExercisesIndexs = _getExercisesIndexs(weekdayName);
     List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, selectedExercisesIndexs);
+    //Allows the screen to block or go to sleep
+    Wakelock.disable();
 
     return Scaffold(
         appBar: PreferredSize(
