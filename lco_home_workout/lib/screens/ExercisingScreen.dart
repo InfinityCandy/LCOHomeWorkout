@@ -202,12 +202,6 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
     await _advancedPlayer.resume();
   }
 
-  @override
-  void dispose() {
-    _advancedPlayer = null;
-    super.dispose();
-  }
-
   /*
   * Stops the exercise, stoping the music and replacing the current screen with the congratulations screen
   */
@@ -282,7 +276,9 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
                           child: RaisedButton(
                             onPressed: () {
                               if(_animationController.isAnimating) {
-                                pauseMusicPlaying();
+                                if(_exerciseTimeFlag) {
+                                  pauseMusicPlaying();
+                                }
                                 _animationController.stop();
                                   setState(() {}); //We use setState() to update the botton's text
                                   }
@@ -294,7 +290,9 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
                                     from: _animationController.value == 0.0
                                     ? 1.0
                                     : _animationController.value);
-                                    resumeMusicPlaying();
+                                    if(_exerciseTimeFlag) {
+                                      resumeMusicPlaying();
+                                    }   
                                   }
                                 },
                                 elevation: 4,
@@ -323,7 +321,9 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
           child: FloatingActionButton(
             onPressed: () {                                  
               if(_animationController.isAnimating) {
-                stopMusicPlaying();
+                if(_exerciseTimeFlag) {
+                  stopMusicPlaying();
+                } 
                 _animationController.stop();
               }
               Navigator.pop(context);

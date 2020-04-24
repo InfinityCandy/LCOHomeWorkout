@@ -5,6 +5,8 @@ import './screens/DaywiseModeScreen.dart';
 import './screens/ExercisingScreen.dart';
 import './screens/AboutScreen.dart';
 import './screens/CongratulationsScreen.dart';
+import './animations/SlidePageRoute.dart';
+import './animations/BouncyPageRoute.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,16 +21,16 @@ class MyApp extends StatelessWidget {
           case "/":
             return MaterialPageRoute(builder: (_) => MainScreen());
           case "/random":
-            return MaterialPageRoute(builder: (_) => RandomModeScreen());
+            return SlidePageRoute(widget: RandomModeScreen(), transisitionType: "RL");
           case "/dayWise":
-            return MaterialPageRoute(builder: (_) => DaywiseModeScreen());
+            return SlidePageRoute(widget: DaywiseModeScreen(), transisitionType: "RL");
           case "/exercising":
             final args = settings.arguments;
-            return MaterialPageRoute(builder: (_) => ExercisingScreen(exerciseRoutineArgs: args));
+            return BouncyPageRoute(widget: ExercisingScreen(exerciseRoutineArgs: args));
           case "/about":
-            return MaterialPageRoute(builder: (_) => AboutScreen());
+            return SlidePageRoute(widget: AboutScreen(), transisitionType: "LR");
           case "/congratulations":
-            return MaterialPageRoute(builder: (_) => CongratulationsScreen());
+            return SlidePageRoute(widget: CongratulationsScreen(), transisitionType: "BT");
           default:
             return MaterialPageRoute(builder: (_) => Scaffold(
                   body: Center(
