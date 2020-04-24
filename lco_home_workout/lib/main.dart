@@ -14,14 +14,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LCO Home Workout',
-      initialRoute: '/',
-      routes: <String, WidgetBuilder> {
-        "/": (BuildContext context) => MainScreen(),
-        "/random": (BuildContext context) => RandomModeScreen(),
-        "/dayWise": (BuildContext context) => DaywiseModeScreen(),
-        "/exercising": (BuildContext context) => ExercisingScreen(),
-        "/about": (BuildContext context) => AboutScreen(),
-        "/congratulations": (BuildContext context) => CongratulationsScreen()
+      onGenerateRoute: (RouteSettings settings) {
+        switch(settings.name) {
+          case "/":
+            return MaterialPageRoute(builder: (_) => MainScreen());
+          case "/random":
+            return MaterialPageRoute(builder: (_) => RandomModeScreen());
+          case "/dayWise":
+            return MaterialPageRoute(builder: (_) => DaywiseModeScreen());
+          case "/exercising":
+            final args = settings.arguments;
+            return MaterialPageRoute(builder: (_) => ExercisingScreen(exerciseRoutineArgs: args));
+          case "/about":
+            return MaterialPageRoute(builder: (_) => AboutScreen());
+          case "/congratulations":
+            return MaterialPageRoute(builder: (_) => CongratulationsScreen());
+          default:
+            return MaterialPageRoute(builder: (_) => Scaffold(
+                  body: Center(
+                      child: Text('No route defined for ${settings.name}')),
+                  ));
+        }
       },
     );
   }

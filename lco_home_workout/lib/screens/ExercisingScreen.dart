@@ -10,6 +10,10 @@ import '../models/ExerciseRoutine.dart';
 
 
 class ExercisingScreen extends StatefulWidget {
+  final Map<String, ExerciseRoutine> exerciseRoutineArgs;
+
+  ExercisingScreen({@required this.exerciseRoutineArgs});
+
   @override
   State<StatefulWidget> createState() {
     return _ExercisingScreen();
@@ -27,8 +31,6 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
   bool _finishExerciseFlag = false;
   bool _isThereselectExercise;
   AudioPlayer _advancedPlayer;
-  Map<String, ExerciseRoutine> _exerciseRoutineArgs;
-
 
   /*
   * Gets the selected exercises cards to display them on the screen while the traning is running and does it indicating the exercise that is currently perfomed
@@ -128,14 +130,14 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
           //If the "_initTimeFlag" is true that means that the user is about to resume his/her exercise right now
           if(_initTimeFlag == true) {
             setState(() {
-              int selectedExercise = _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.elementAt(_exerciseIndexCounter);
+              int selectedExercise = widget.exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.elementAt(_exerciseIndexCounter);
               int selectedExerciseTime = int.parse(Constants.EXERCISES_LIST[selectedExercise]["Duration"]);
               playSelectedMusic(Constants.EXERCISES_LIST[selectedExercise]["Music"]);
               _animationController.duration = Duration(seconds: selectedExerciseTime);
               _animationController.reverse(from: _animationController.value = 1);
 
               _exerciseIndexCounter = _exerciseIndexCounter + 1;
-              if(_exerciseIndexCounter > _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.length - 1) {
+              if(_exerciseIndexCounter > widget.exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs.length - 1) {
                 _setsCounter = _setsCounter - 1;
 
                 if(_setsCounter == 0) {
@@ -219,12 +221,10 @@ class _ExercisingScreen extends State<ExercisingScreen> with TickerProviderState
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    //We get the arguments that we passed to the named route
-    _exerciseRoutineArgs = ModalRoute.of(context).settings.arguments as Map<String, ExerciseRoutine>;
     //We get the list of selected exercises cards
-    List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, _exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs, _exerciseIndexCounter, _isThereselectExercise);
+    List<Widget> exercisesListWidgets = _getSelectedExercisesCards(screenHeight, screenWidth, widget.exerciseRoutineArgs["exerciseRoutine"].selectedExercisesIndexs, _exerciseIndexCounter, _isThereselectExercise);
     //We set the number of set that the user must perform during the exercise
-    _setsCounter = _exerciseRoutineArgs["exerciseRoutine"].numberOfSets;
+    _setsCounter = widget.exerciseRoutineArgs["exerciseRoutine"].numberOfSets;
 
     return Scaffold(
         appBar: PreferredSize(
